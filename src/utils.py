@@ -1,28 +1,61 @@
-import matplotlib.pyplot as plt
+import altair as alt
 import streamlit as st
 import pandas as pd
+import json
+import random
+import os
+
+def get_random_quote():
+    """
+    Returns a random financial quote from the JSON file.
+    """
+    try:
+        # Construct absolute path to ensure it works
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(base_path, 'quotes.json')
+        
+        with open(file_path, 'r') as f:
+            quotes = json.load(f)
+        return random.choice(quotes)
+    except Exception as e:
+        return "Save money and money will save you."
+
 
 def render_charts(df):
     """
-    Renders charts based on the dataframe.
+    Renders interactive charts using Altair.
     """
     if 'category' not in df.columns:
         st.warning("No category column found for visualization.")
         return
 
-    # 1. Pie Chart of Expenses by Category
-    st.subheader("Expenses by Category")
-    
-    # Filter out Income if possible? For now verify what's there
-    # Assuming positive/negative amounts, or just categorize everything
-    
-    category_counts = df['category'].value_counts()
-    
-    fig1, ax1 = plt.subplots()
-    ax1.pie(category_counts, labels=category_counts.index, autopct='%1.1f%%', startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    st.pyplot(fig1)
+    # Filter out Income for the pie chart
+    expenses_df = df[df['category'] != 'Income'].copy()
+    if expenses_df.empty:
+        st.info("No expense data to visualize.")
+        return
 
-    # 2. Bar Chart
-    st.subheader("Transaction Counts by Category")
-    st.bar_chart(category_counts)
+    # Aggregate proper formatting
+    # ensure amount is positive
+    expenses_df['amount'] = expenses_df['amount'].abs()
+    
+    category_totals = expenses_df.groupby('category')['amount'].sum().reset_index()
+
+    # Interactive Pie Chart (Donut)
+    base = alt.Chart(category_totals).encode(
+        theta=alt.Theta("amount", stack=True)
+    )
+
+    pie = base.mark_arc(outerRadius=120, innerRadius=80).encode(
+        color=alt.Color("category"),
+        order=alt.Order("amount", sort="descending"),
+        tooltip=["category", "amount"]
+    )
+    
+    text = base.mark_text(radius=140).encode(
+        text=alt.Text("amount", format=",.1f"),
+        order=alt.Order("amount", sort="descending"),
+        color=alt.value("black")  
+    )
+
+    st.altair_chart(pie + text, use_container_width=True)

@@ -1,9 +1,154 @@
-Date,Description,Amount
-2023-10-01,Grocery Store,50.00
-2023-10-02,Uber Ride,15.50
-2023-10-03,Starbucks Coffee,5.25
-2023-10-05,Salary Deposit,3000.00
-2023-10-06,Amazon Purchase,-45.99
-2023-10-07,Luxury Watch Store,5000.00
-2023-10-08,Gas Station,40.00
-2023-10-09,Netflix Subscription,15.00
+date,description,amount
+2025-07-01,Tech Corp Salary Input,4500.0
+2025-07-02,Whole Foods,-66.7
+2025-07-03,Amazon,-55.89
+2025-07-05,Luxury Apartments Rent,-1500.0
+2025-07-05,Luxury Apartments Rent,-1500.0
+2025-07-06,Spotify,-51.94
+2025-07-07,Amazon,-251.41
+2025-07-11,Trader Joes,-39.68
+2025-07-13,Parking,-31.53
+2025-07-14,Parking,-48.23
+2025-07-15,City Utility Bill,-130.59588234138386
+2025-07-15,Safeway,-77.06
+2025-07-17,Best Buy,-61.87
+2025-07-18,Costco,-135.13
+2025-07-21,Costco,-152.46
+2025-07-22,Local Market,-154.94
+2025-07-23,Public Transit,-30.78
+2025-07-25,Uber,-36.04
+2025-07-26,Shell Gas Station,-42.86
+2025-07-28,Spotify,-6.82
+2025-07-30,Costco,-79.23
+2025-07-31,Best Buy,-140.17
+2025-08-01,Tech Corp Salary Input,4500.0
+2025-08-01,Cinema,-50.59
+2025-08-02,Shell Gas Station,-18.94
+2025-08-03,Online Store,-235.1
+2025-08-04,Shell Gas Station,-20.54
+2025-08-05,Luxury Apartments Rent,-1500.0
+2025-08-05,Public Transit,-13.61
+2025-08-06,Fancy Dinner Place,-14.36
+2025-08-07,Local Market,-192.17
+2025-08-08,Online Store,-109.48
+2025-08-11,Costco,-109.97
+2025-08-14,Fancy Dinner Place,-59.75
+2025-08-15,City Utility Bill,-74.06698098484253
+2025-08-17,Shell Gas Station,-32.38
+2025-08-18,Uber,-29.58
+2025-08-20,Cinema,-55.17
+2025-08-21,Uber Eats,-31.74
+2025-08-22,Online Store,-188.81
+2025-08-23,Netflix,-12.01
+2025-08-24,Online Store,-229.33
+2025-08-25,McDonalds,-71.3
+2025-08-26,Concert Ticket,-46.45
+2025-08-28,Public Transit,-39.05
+2025-08-30,Lyft,-21.59
+2025-09-01,Tech Corp Salary Input,4500.0
+2025-09-01,Local Market,-159.26
+2025-09-02,Luxury Watch Store,-5000.0
+2025-09-05,Luxury Apartments Rent,-1500.0
+2025-09-06,Spotify,-32.47
+2025-09-07,Costco,-168.03
+2025-09-09,Parking,-20.72
+2025-09-10,McDonalds,-15.5
+2025-09-13,Costco,-96.9
+2025-09-14,Clothing Store,-291.39
+2025-09-15,City Utility Bill,-89.02567935724318
+2025-09-15,Amazon,-50.79
+2025-09-16,Parking,-10.71
+2025-09-17,Fancy Dinner Place,-56.11
+2025-09-20,Spotify,-15.57
+2025-09-22,Trader Joes,-170.78
+2025-09-23,Starbucks,-74.72
+2025-09-24,Online Store,-227.59
+2025-09-25,Trader Joes,-90.32
+2025-09-27,Online Store,-141.41
+2025-09-28,Safeway,-190.58
+2025-09-30,Starbucks,-49.89
+2025-10-01,Tech Corp Salary Input,4500.0
+2025-10-01,Safeway,-94.3
+2025-10-03,Uber,-25.47
+2025-10-04,Uber Eats,-54.57
+2025-10-05,Luxury Apartments Rent,-1500.0
+2025-10-05,Steam Games,-20.77
+2025-10-08,Parking,-22.33
+2025-10-09,Local Cafe,-36.41
+2025-10-10,Public Transit,-42.95
+2025-10-11,Steam Games,-22.44
+2025-10-13,Online Store,-104.09
+2025-10-15,City Utility Bill,-149.9418406000209
+2025-10-16,Shell Gas Station,-34.17
+2025-10-17,Local Market,-112.9
+2025-10-18,Parking,-28.06
+2025-10-19,Costco,-159.52
+2025-10-20,Public Transit,-16.45
+2025-10-21,Public Transit,-17.26
+2025-10-24,Cinema,-33.76
+2025-10-25,Trader Joes,-77.72
+2025-10-26,Parking,-36.46
+2025-11-01,Tech Corp Salary Input,4500.0
+2025-11-04,Lyft,-48.07
+2025-11-05,Luxury Apartments Rent,-1500.0
+2025-11-05,Uber,-21.55
+2025-11-06,Whole Foods,-77.12
+2025-11-10,Safeway,-182.06
+2025-11-11,Parking,-12.87
+2025-11-14,McDonalds,-53.67
+2025-11-15,City Utility Bill,-99.70758762568352
+2025-11-15,City Utility Bill,-81.05575882241382
+2025-11-16,Steam Games,-30.54
+2025-11-19,Costco,-154.64
+2025-11-19,Luxury Watch Store,-5000.0
+2025-11-22,Concert Ticket,-49.87
+2025-11-23,Concert Ticket,-20.21
+2025-11-24,Uber,-39.85
+2025-11-26,Cinema,-37.37
+2025-11-29,McDonalds,-26.58
+2025-11-30,Shell Gas Station,-39.83
+2025-12-01,Tech Corp Salary Input,4500.0
+2025-12-01,Best Buy,-114.06
+2025-12-03,Uber Eats,-27.8
+2025-12-05,Luxury Apartments Rent,-1500.0
+2025-12-05,Steam Games,-27.91
+2025-12-07,Best Buy,-128.95
+2025-12-08,Cinema,-56.13
+2025-12-11,Starbucks,-79.46
+2025-12-13,Public Transit,-14.47
+2025-12-15,City Utility Bill,-66.04065687561074
+2025-12-15,Steam Games,-56.41
+2025-12-16,Online Store,-171.87
+2025-12-17,Amazon,-127.11
+2025-12-18,Best Buy,-86.36
+2025-12-19,Clothing Store,-229.78
+2025-12-20,Public Transit,-17.16
+2025-12-21,Costco,-123.94
+2025-12-22,Uber,-43.08
+2025-12-23,Steam Games,-24.04
+2025-12-24,Public Transit,-14.56
+2025-12-25,Cinema,-42.2
+2025-12-27,Starbucks,-21.19
+2025-12-28,Netflix,-24.08
+2025-12-30,Online Store,-207.41
+2026-01-01,Tech Corp Salary Input,4500.0
+2026-01-01,Shell Gas Station,-19.6
+2026-01-03,Target,-254.57
+2026-01-04,Costco,-48.45
+2026-01-05,Luxury Apartments Rent,-1500.0
+2026-01-05,Safeway,-144.4
+2026-01-07,Starbucks,-17.86
+2026-01-10,Whole Foods,-114.47
+2026-01-12,Lyft,-44.16
+2026-01-15,City Utility Bill,-52.27048414553144
+2026-01-15,Local Market,-82.7
+2026-01-16,Public Transit,-37.53
+2026-01-17,Online Store,-197.02
+2026-01-20,Whole Foods,-130.87
+2026-01-22,Cinema,-26.66
+2026-01-23,Local Cafe,-78.54
+2026-01-24,Amazon,-81.64
+2026-01-25,Spotify,-18.84
+2026-01-29,Clothing Store,-201.9
+2026-01-30,Netflix,-18.85
+2026-01-31,Shell Gas Station,-42.37

@@ -12,31 +12,34 @@ class ExpenseCategorizer:
         
         # Simple rule-based fallback for the MVP to show immediate value
         self.keywords = {
-            # Utilities
-            'electric': 'Utilities', 'water': 'Utilities', 'internet': 'Utilities', 'phone': 'Utilities',
-            'mobile': 'Utilities', 'bill': 'Utilities', 'power': 'Utilities', 'energy': 'Utilities',
-            # Health
-            'pharmacy': 'Health', 'doctor': 'Health', 'medical': 'Health', 'gym': 'Health',
-            'fitness': 'Health', 'yoga': 'Health', 'hospital': 'Health', 'care': 'Health',
-            # Housing
-            'rent': 'Housing', 'mortgage': 'Housing', 'apartment': 'Housing', 'housing': 'Housing',
-            # Shopping
-            'amazon': 'Shopping', 'walmart': 'Shopping', 'target': 'Shopping', 'ebay': 'Shopping',
-            'store': 'Shopping', 'clothing': 'Shopping', 'shoes': 'Shopping', 'electronics': 'Shopping',
-            # Food & Dining
-            'grocery': 'Food', 'supermarket': 'Food', 'burger': 'Food', 'pizza': 'Food',
-            'restaurant': 'Dining', 'cafe': 'Dining', 'coffee': 'Dining', 'starbucks': 'Dining',
-            # Transport
-            'uber': 'Transport', 'lyft': 'Transport', 'gas': 'Transport', 'shell': 'Transport',
-            'fuel': 'Transport', 'parking': 'Transport', 'metro': 'Transport', 'train': 'Transport', 'bus': 'Transport',
-            # Travel
-            'flight': 'Travel', 'hotel': 'Travel', 'airbnb': 'Travel', 'vacation': 'Travel',
-            # Services
-            'insurance': 'Services', 'bank': 'Services', 'subscription': 'Services',
-            # Entertainment
-            'netflix': 'Entertainment', 'spotify': 'Entertainment', 'movie': 'Entertainment', 'cinema': 'Entertainment',
-            # Income
-            'salary': 'Income', 'deposit': 'Income'
+            'grocery': 'Groceries',
+            'supermarket': 'Groceries',
+            'restaurant': 'Dining',
+            'cafe': 'Dining',
+            'coffee': 'Dining',
+            'uber': 'Transport',
+            'lyft': 'Transport',
+            'gas': 'Transport',
+            'shell': 'Transport',
+            'netflix': 'Entertainment',
+            'spotify': 'Entertainment',
+            'amazon': 'Shopping',
+            'salary': 'Income',
+            'deposit': 'Income',
+            'dividend': 'Income',
+            'zerodha': 'Stocks',
+            'groww': 'Stocks',
+            'robinhood': 'Stocks',
+            'etrade': 'Stocks',
+            'stock': 'Stocks',
+            'equity': 'Stocks',
+            'fund': 'Stocks',
+            'bond': 'Bonds',
+            'treasury': 'Bonds',
+            'sovereign': 'Bonds',
+            'gold': 'Commodities',
+            'silver': 'Commodities',
+            'bullion': 'Commodities'
         }
 
     def train(self, df):

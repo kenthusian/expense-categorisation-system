@@ -4,6 +4,11 @@ A local, privacy-focused tool to categorize bank transactions and detect spendin
 
 ## Features
 - **Upload CSV**: Drag and drop your bank statement.
+- **Financial Insights**:
+    - **Health Score**: Get a 0-100 score on your financial habits.
+    - **Investment Suggestions**: Personalized tips based on your savings rate.
+    - **Goal Tracker**: Set and track progress towards financial goals.
+    - **Spending Trends**: Analyze daily spending patterns.
 - **Auto-Categorization**: Uses a Hybrid approach:
     - **Keyword Matching**: Instant categorization for common merchants.
     - **Machine Learning**: Random Forest model trained on TF-IDF features.
