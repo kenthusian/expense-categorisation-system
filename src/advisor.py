@@ -125,7 +125,7 @@ class FinancialAdvisor:
         """
         insights = self.generate_actionable_insights()
         
-        # 5. Category Concentration Check (From Reference)
+        # 5. Category Concentration Check
         expenses = self.df[self.df['category'] != 'Income']
         if not expenses.empty:
             total_expense = expenses['amount'].abs().sum()
@@ -133,23 +133,141 @@ class FinancialAdvisor:
             top_cat = cat_exp.idxmax()
             top_cat_pct = (cat_exp.max() / total_expense) * 100 if total_expense > 0 else 0
             
-            if top_cat_pct > 40:
+            if top_cat_pct > 35: # Tightened threshold for better focus
                 insights.append({
                     "type": "info",
-                    "title": "High Concentration",
-                    "text": f"**{top_cat}** accounts for {top_cat_pct:.1f}% of your spending.",
+                    "title": f"Heavy {top_cat} Spending",
+                    "text": f"Your spending is highly concentrated in {top_cat} ({top_cat_pct:.1f}% of budget). Reducing this by 10% would save you about ₹{(cat_exp.max() * 0.1):.0f} monthly.",
                     "action": "Check details"
                 })
 
-        # 6. Anomaly Check (From Reference)
+        # 6. Anomaly Check
         if 'is_anomaly' in self.df.columns:
-            anomalies = self.df[self.df['is_anomaly'] == -1] # Assuming -1 is anomaly based on model.py
+            anomalies = self.df[self.df['is_anomaly'] == -1]
             if not anomalies.empty:
                 insights.append({
                     "type": "alert",
-                    "title": "Anomalies Detected",
-                    "text": f"Found {len(anomalies)} unusual transactions.",
+                    "title": "Unusual Spending",
+                    "text": f"Found {len(anomalies)} transactions that differ from your normal patterns. This might be a sign of leakage or fraud.",
                     "action": "Review Anomalies"
+                })
+        
+        # 7. Surplus Check
+        breakdown = self.analyze_50_30_20()
+        if breakdown and breakdown['Savings']['amount'] > 0:
+            surplus = breakdown['Savings']['amount']
+            invested = self.df[self.df['category'].str.lower().str.contains('investment|sip|mutual fund|stock', na=False)]['amount'].abs().sum()
+            if invested < (surplus * 0.5):
+                to_invest = (surplus * 0.7) - invested
+                if to_invest > 500:
+                    insights.append({
+                        "type": "success",
+                        "title": "Idle Cash Detected",
+                        "text": f"You have about ₹{surplus:,.0f} in surplus this month, but only ₹{invested:,.0f} is invested. You could put ₹{to_invest:,.0f} into an Index Fund today.",
+                        "action": "Consider Investing"
+                    })
+
+        # 8. Discretionary Spending Check
+        if breakdown:
+            wants_pct = breakdown['Wants']['pct']
+            if wants_pct > 35:
+                potential_savings = breakdown['Wants']['amount'] * 0.2
+                insights.append({
+                    "type": "warning",
+                    "title": "Lifestyle Inflation",
+                    "text": f"Your 'Wants' are at {wants_pct:.1f}% of income. A 20% trim on non-essentials could add ₹{potential_savings:,.0f} to your wealth every month.",
+                    "action": "Cut Dining/Shopping"
+                })
+
+        # 9. Cash Buffer (Burn Rate)
+        expenses_df = self.df[self.df['category'] != 'Income']
+        monthly_expense = expenses_df['amount'].abs().sum()
+        actual_income = self.df[self.df['category'] == 'Income']['amount'].sum()
+        income_to_use = actual_income if actual_income > 0 else self.salary
+        
+        if monthly_expense > 0:
+            months_buffer = income_to_use / monthly_expense
+            if months_buffer < 1.2:
+                insights.append({
+                    "type": "alert",
+                    "title": "Tight Cash Flow",
+                    "text": f"Your monthly expenses are very close to your income. You only have a {months_buffer:.1f}x coverage ratio. Consider building a larger buffer.",
+                    "action": "Review Rent/Utilities"
                 })
                 
         return insights
+
+    def get_investment_suggestions(self, health_details, score):
+        """
+        Generates deep, actionable investment suggestions based on health score details.
+        """
+        suggestions = []
+        sr = health_details.get('savings_ratio', 0)
+        ir = health_details.get('investment_ratio', 0)
+        total_inv = health_details.get('total_invested', 0)
+        net_savings = health_details.get('net_savings', 0)
+        alloc = health_details.get('allocation', {})
+        
+        # 0. Prep metrics
+        # Estimate monthly expenses from current data
+        expenses_df = self.df[self.df['category'] != 'Income']
+        monthly_expense = expenses_df['amount'].abs().sum() if not expenses_df.empty else (self.salary * 0.7)
+        
+        # 1. Emergency Fund (Data-Driven Target)
+        ef_target = monthly_expense * 6
+        if total_inv < ef_target:
+            shortfall = ef_target - total_inv
+            suggestions.append({
+                "icon": "🛡️", "title": f"Foundation: Build ₹{ef_target/1000:,.0f}k Emergency Fund",
+                "desc": f"Your current monthly expenses are approx ₹{monthly_expense:,.0f}. Aim for a 6-month buffer of ₹{ef_target:,.0f}. You are currently ₹{shortfall:,.0f} short. Keep this in a Liquid Fund for 24/7 access."
+            })
+        
+        # 2. SIP Strategy (Surplus-Driven)
+        surplus = max(0, net_savings)
+        if surplus > 5000:
+            sip_aim = surplus * 0.6
+            suggestions.append({
+                "icon": "📈", "title": f"Start a ₹{sip_aim:,.0f}/mo SIP",
+                "desc": f"Since you have a monthly surplus of ₹{surplus:,.0f}, you can comfortably automate ₹{sip_aim:,.0f} into a Nifty 50 Index Fund. Compounding works best when it's consistent!"
+            })
+
+        # 3. Tax Saving (Indian 80C Focus)
+        if self.salary > 41000: # Over 5LPA
+            suggestions.append({
+                "icon": "⚖️", "title": "Tax Optimization (80C/NPS)",
+                "desc": "Use ELSS Mutual Funds for the shortest lock-in (3yr) or PPF for risk-free 7%+ returns. Also, add ₹50k to NPS for additional tax savings under 80CCD."
+            })
+
+        # 4. Asset Allocation Correction
+        stocks_pct = alloc.get('stocks', 0)
+        if stocks_pct > 75:
+            suggestions.append({
+                "icon": "⚓", "title": "De-risk: Add Stability",
+                "desc": "Your portfolio is aggressive (>75% Equity). Balance it by moving some surplus to Sovereign Gold Bonds (SGB) or Debt Funds. Gold adds a great cushion during market crashes."
+            })
+        elif stocks_pct < 40 and total_inv > 50000:
+            suggestions.append({
+                "icon": "🚀", "title": "Growth: Increase Equity",
+                "desc": f"At {stocks_pct:.1f}% equity, you might struggle to beat inflation. Gradually increase exposure to Mid-cap or Flexi-cap funds to target 12-14% long-term returns."
+            })
+
+        # 5. Advanced Milestones
+        if total_inv > 1000000:
+            suggestions.append({
+                "icon": "🏘️", "title": "HNI Diversification: REITs",
+                "desc": "With a 10L+ portfolio, look at REITs (Real Estate Investment Trusts) to get commercial property exposure and quarterly dividends without the hassle of physical real estate."
+            })
+            
+        # 6. Insurance Check (Humane addition)
+        suggestions.append({
+            "icon": "🩺", "title": "Health First",
+            "desc": "No investment plan is complete without safety. Ensure your Health Insurance cover is at least 10x your monthly expense to protect your principal during a crisis."
+        })
+
+        if not suggestions:
+            suggestions.append({
+                "icon": "✨", "title": "Elite Discipline",
+                "desc": "Your metrics are perfect. Focus now on Estate Planning (Nominations, Wills) and ensuring your Health & Term Insurance cover is at least 20x your annual income."
+            })
+            
+        return suggestions
