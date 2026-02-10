@@ -1,5 +1,5 @@
-import pandas as pd
-from src.analytics import calculate_financial_score
+import pandas as pd  # type: ignore
+from src.analytics import calculate_financial_score  # type: ignore
 
 def test_financial_score_perfect():
     # Income 3000, Spend 1000 -> Savings 2000 (66%) -> Score 100

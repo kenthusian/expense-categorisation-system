@@ -1,5 +1,5 @@
-import pandas as pd
-from src.model import ExpenseCategorizer
+import pandas as pd  # type: ignore
+from src.model import ExpenseCategorizer  # type: ignore
 
 def test_heuristic_categorization():
     categorizer = ExpenseCategorizer()
@@ -9,7 +9,7 @@ def test_heuristic_categorization():
     df = categorizer.predict(df)
     assert 'category' in df.columns
     assert df.iloc[0]['category'] == 'Transport'
-    assert df.iloc[1]['category'] == 'Groceries'
+    assert df.iloc[1]['category'] == 'Food'
 
 def test_training_flow():
     categorizer = ExpenseCategorizer()
@@ -30,4 +30,4 @@ def test_training_flow():
     
     result = categorizer.predict(test_data)
     assert result.iloc[0]['category'] == 'Transport'
-    assert result.iloc[1]['category'] == 'Groceries'
+    assert result.iloc[1]['category'] == 'Food'

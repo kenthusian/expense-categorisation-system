@@ -5,3 +5,7 @@ matplotlib
 pytest
 numpy
 altair
+plotly
+joblib
+fpdf
+openpyxl

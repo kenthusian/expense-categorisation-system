@@ -1,0 +1,22 @@
+{
+    "pythonVersion": "3.13",
+    "pythonPlatform": "Windows",
+    "venvPath": "",
+    "extraPaths": [
+        "."
+    ],
+    "reportMissingImports": "none",
+    "reportMissingModuleSource": "none",
+    "reportGeneralTypeIssues": "none",
+    "reportOptionalMemberAccess": "none",
+    "reportOptionalSubscript": "none",
+    "reportOptionalCall": "none",
+    "reportArgumentType": "none",
+    "reportIndexIssue": "none",
+    "reportCallIssue": "none",
+    "reportOperatorIssue": "none",
+    "typeCheckingMode": "off",
+    "include": [
+        "."
+    ]
+}

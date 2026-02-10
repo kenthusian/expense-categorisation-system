@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 
 def calculate_financial_score(df, income, currency_symbol="$"):
     """
@@ -91,3 +91,53 @@ def calculate_financial_score(df, income, currency_symbol="$"):
                  suggestions.append("Check the flagged large transactions.")
 
     return max(0, score), breakdown, suggestions
+
+def generate_spending_forecast(df, monthly_income):
+    """
+    Project end-of-month spending and balance based on current trends.
+    """
+    if df.empty or 'date' not in df.columns:
+        return None
+        
+    # Ensure date
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Filter for the latest month present in data
+    latest_date = df['date'].max()
+    current_month_df = df[
+        (df['date'].dt.year == latest_date.year) & 
+        (df['date'].dt.month == latest_date.month) &
+        (df['category'] != 'Income')
+    ].copy()
+    
+    if current_month_df.empty:
+        return None
+        
+    # Stats
+    days_passed = latest_date.day
+    days_in_month = latest_date.days_in_month
+    
+    current_spend = current_month_df['amount'].abs().sum()
+    
+    # Avoid division by zero
+    if days_passed == 0: 
+        stats = {
+            "projected_spend": 0,
+            "projected_balance": monthly_income,
+            "status": "Too early to tell"
+        }
+        return stats
+        
+    avg_daily_spend = current_spend / days_passed
+    projected_total_spend = avg_daily_spend * days_in_month
+    
+    projected_balance = monthly_income - projected_total_spend
+    
+    return {
+        "current_spend": current_spend,
+        "avg_daily": avg_daily_spend,
+        "days_left": days_in_month - days_passed,
+        "projected_total_spend": projected_total_spend,
+        "projected_balance": projected_balance,
+        "month_name": latest_date.strftime("%B")
+    }

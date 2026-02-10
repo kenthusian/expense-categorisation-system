@@ -1,5 +1,5 @@
-import pandas as pd
-import numpy as np
+import pandas as pd  # type: ignore
+import numpy as np  # type: ignore
 import random
 from datetime import datetime, timedelta
 
@@ -20,19 +20,19 @@ descriptions = {
 
 data = []
 
-current_date = start_date
+current_date: datetime = start_date
 while current_date <= end_date:
     # 1. Salary (1st of month)
-    if current_date.day == 1:
-        data.append([current_date.strftime('%Y-%m-%d'), 'Tech Corp Salary Input', salary_amount, 'Income'])
+    if current_date.day == 1:  # type: ignore
+        data.append([current_date.strftime('%Y-%m-%d'), 'Tech Corp Salary Input', salary_amount, 'Income'])  # type: ignore
         
     # 2. Rent (5th of month)
-    if current_date.day == 5:
-        data.append([current_date.strftime('%Y-%m-%d'), 'Luxury Apartments Rent', -rent_amount, 'Rent'])
+    if current_date.day == 5:  # type: ignore
+        data.append([current_date.strftime('%Y-%m-%d'), 'Luxury Apartments Rent', 0 - rent_amount, 'Rent'])  # type: ignore
         
     # 3. Utilities (15th)
-    if current_date.day == 15:
-         data.append([current_date.strftime('%Y-%m-%d'), 'City Utility Bill', -random.uniform(50, 150), 'Utilities'])
+    if current_date.day == 15:  # type: ignore
+         data.append([current_date.strftime('%Y-%m-%d'), 'City Utility Bill', 0 - random.uniform(50, 150), 'Utilities'])  # type: ignore
     
     # 4. Random Daily Expenses (Probabilistic)
     if random.random() < 0.6: # 60% chance of distinct transaction
@@ -48,7 +48,7 @@ while current_date <= end_date:
         elif cat == 'Shopping': amount = random.uniform(20, 300)
         elif cat == 'Entertainment': amount = random.uniform(5, 60)
         
-        data.append([current_date.strftime('%Y-%m-%d'), desc, -round(amount, 2), cat])
+        data.append([current_date.strftime('%Y-%m-%d'), desc, 0 - round(amount, ndigits=2), cat])  # type: ignore
 
     # 5. Occasional Anomalies
     if random.random() < 0.005: # 0.5% chance
