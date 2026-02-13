@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B)
 ![Scikit-Learn](https://img.shields.io/badge/ML-Scikit--Learn-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
+
 
 A **privacy-focused, local-first** application that leverages Machine Learning to categorize bank transactions, detect spending anomalies, and provide actionable financial insights.
 
@@ -111,3 +111,4 @@ ExpenseCategorisationSystem/
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
